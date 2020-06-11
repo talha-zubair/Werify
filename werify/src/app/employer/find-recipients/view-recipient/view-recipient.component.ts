@@ -69,7 +69,7 @@ export class ViewRecipientComponent implements OnInit {
   }
 
   contact(username: string) {
-    const chat = new Chat(null, localStorage.getItem("Ousername"), username, null, null, null, false, false, false, false, false, false);
+    const chat = new Chat(null, localStorage.getItem("Ousername"), username, null, null, [], false, false, false, false, false, false);
     this.orgService.CreateChat(chat).subscribe(
       data => {
         if (data["message"] == "success") {

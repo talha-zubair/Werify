@@ -26,7 +26,9 @@ export class InboxMessagesComponent implements OnInit {
       this.recService.getChat(chat_id).subscribe(
         data => {
           this.chat = data["docs"];
-          this.chat.messages = [];
+          if (this.chat.messages == null) {
+            this.chat.messages = [];
+          }
         },
         err => {
           console.log(err);
@@ -55,7 +57,9 @@ export class InboxMessagesComponent implements OnInit {
       this.socket.emit('mes_from_rec', {
         message: mes,
         sender: this.chat.recipient,
-        reciever: this.chat.organization
+        reciever: this.chat.organization,
+        chat_id: this.chat._id,
+        rtoken: localStorage.getItem("Rtoken")
       });
     }
   }

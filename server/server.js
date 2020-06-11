@@ -10,6 +10,10 @@ const organizationRoutes = require("./routes/organization");
 const adminRoutes = require("./routes/admin");
 const mailRoutes = require("./routes/nodemailer.js");
 
+const ChatModel = require("./models/chat.js");
+
+const jwt = require("jsonwebtoken");
+var jwtfile = require("./jwt/jwt.js");
 
 app.use(bodyparser.json());
 app.use(cors())
@@ -31,13 +35,27 @@ server = app.listen(3000);
 var io = socket(server);
 io.on('connection', (socket) => {
       socket.on('mes_from_rec', (data) => {
-            io.emit('mes_from_rec', {
-                  msg: data
+            jwt.verify(data["rtoken"], jwtfile.secretkey, (err, data1) => {
+                  if (err) {
+                        console.log("Error in Authentication in Chatting in Recipient");
+                  } else {
+                        ChatModel.update({ _id: data["chat_id"] }, { $push: { messages: data["message"] } });
+                        io.emit('mes_from_rec', {
+                              msg: data
+                        });
+                  }
             });
       });
       socket.on('mes_from_org', (data) => {
-            io.emit('mes_from_org', {
-                  msg: data
+            jwt.verify(data["otoken"], jwtfile.secretkey, (err, data1) => {
+                  if (err) {
+                        console.log("Error in Authentication in Chatting in Organization");
+                  } else {
+                        ChatModel.update({ _id: data["chat_id"] }, { $push: { messages: data["message"] } });
+                        io.emit('mes_from_org', {
+                              msg: data
+                        });
+                  }
             });
       });
 });
