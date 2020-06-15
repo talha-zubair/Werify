@@ -8,9 +8,9 @@ describe('InboxMessagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InboxMessagesComponent ]
+      declarations: [InboxMessagesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

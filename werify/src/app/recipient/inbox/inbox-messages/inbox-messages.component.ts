@@ -10,6 +10,7 @@ import { Message } from 'src/app/models/message';
   templateUrl: './inbox-messages.component.html',
   styleUrls: ['./inbox-messages.component.css']
 })
+
 export class InboxMessagesComponent implements OnInit {
 
   private socket: any;
@@ -36,8 +37,8 @@ export class InboxMessagesComponent implements OnInit {
       )
     });
 
-
     this.socket.on('mes_from_org', (data: any) => {
+      // console.log(data);
       let sender = data.msg["sender"];
       let reciever = data.msg["reciever"];
       if (sender == this.chat.organization && reciever == this.chat.recipient) {
@@ -51,7 +52,7 @@ export class InboxMessagesComponent implements OnInit {
     if (this.message == "") {
       alert("Cannot Send Empty Message");
     } else {
-      const mes = new Message(null, "recipient", this.message, null, "text-message", null);
+      const mes = new Message(null, "recipient", this.message, null, "text-message", new Date());
       this.addMessage(mes.message_text, "recipient");
       this.message = "";
       this.socket.emit('mes_from_rec', {
@@ -63,6 +64,7 @@ export class InboxMessagesComponent implements OnInit {
       });
     }
   }
+
   addMessage(text: string, user: string) {
     this.chat.messages.push(new Message(null, user, text, null, "text-message", new Date()));
   }

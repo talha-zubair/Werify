@@ -22,17 +22,17 @@ var ChatSchema = new Schema({
             required: true
       },
       messages: [
-            {
-                  date:
-                  {
-                        type: Date,
-                        default: Date.now
-                  },
-                  type: String,
-                  file_path: String,
-                  message_text: String,
-                  user: String
-            }
+            // {
+            //       date:
+            //       {
+            //             type: Date,
+            //             default: Date.now
+            //       },
+            //       type: String,
+            //       file_path: String,
+            //       message_text: String,
+            //       user: String
+            // }
       ],
       rec_archieved_status:
       {

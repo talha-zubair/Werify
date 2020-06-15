@@ -38,6 +38,7 @@ export class InboxMessagesComponent implements OnInit {
     });
 
     this.socket.on('mes_from_rec', (data: any) => {
+      // console.log(data);
       let sender = data.msg["sender"];
       let reciever = data.msg["reciever"];
       if (sender == this.chat.recipient && reciever == this.chat.organization) {
@@ -51,7 +52,7 @@ export class InboxMessagesComponent implements OnInit {
     if (this.message == "") {
       alert("Cannot Send Empty Message");
     } else {
-      const mes = new Message(null, "organization", this.message, null, "text-message", null);
+      const mes = new Message(null, "organization", this.message, null, "text-message", new Date());
       this.addMessage(mes.message_text, "organization");
       this.message = "";
       this.socket.emit('mes_from_org', {

@@ -39,9 +39,15 @@ io.on('connection', (socket) => {
                   if (err) {
                         console.log("Error in Authentication in Chatting in Recipient");
                   } else {
-                        ChatModel.update({ _id: data["chat_id"] }, { $push: { messages: data["message"] } });
-                        io.emit('mes_from_rec', {
-                              msg: data
+                        // console.log(data);
+                        ChatModel.updateOne({ _id: data["chat_id"] }, { $push: { messages: [data["message"]] } }, (err, docs) => {
+                              if (err) {
+                                    console.log(err);
+                              } else {
+                                    io.emit('mes_from_rec', {
+                                          msg: data
+                                    });
+                              }
                         });
                   }
             });
@@ -51,9 +57,15 @@ io.on('connection', (socket) => {
                   if (err) {
                         console.log("Error in Authentication in Chatting in Organization");
                   } else {
-                        ChatModel.update({ _id: data["chat_id"] }, { $push: { messages: data["message"] } });
-                        io.emit('mes_from_org', {
-                              msg: data
+                        // console.log(data);
+                        ChatModel.updateOne({ _id: data["chat_id"] }, { $push: { messages: [data["message"]] } }, (err, docs) => {
+                              if (err) {
+                                    console.log(err);
+                              } else {
+                                    io.emit('mes_from_org', {
+                                          msg: data
+                                    });
+                              }
                         });
                   }
             });
