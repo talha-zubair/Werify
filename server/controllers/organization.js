@@ -471,6 +471,30 @@ exports.getRecipients = (req, res, next) => {
 }
 
 
+exports.searchRecipients = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var search = req.body["search_text"];
+                  RecipientModel.find({ username: { $regex: '.*' + search + '.*', $options: 'i' }, profile_completed_status: true }, (err, docs) => {
+                        if (docs) {
+                              res.json({ "docs": docs, "message": "success" });
+                        } else {
+                              res.json({ 'message': "failure" });
+                        }
+                  })
+            }
+      })
+}
+
+
 
 
 

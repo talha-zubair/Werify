@@ -17,17 +17,21 @@
                                     </tr>
                               </thead>
                               <tbody>
-                                    <tr *ngFor="let certificate of certificates">
+                                    <tr
+                                          *ngFor="let certificate of certificates | paginate: { itemsPerPage: 6, currentPage: p }">
                                           <td>{{certificate.certificate_no}}</td>
                                           <td>{{certificate.sender}}</td>
                                           <td>{{certificate.reciever}}</td>
-                                          <td>{{certificate.issue_date}}</td>
+                                          <td>{{formatedDate(certificate.issue_date)}}</td>
                                           <td>{{certificate.course}}</td>
                                           <td>{{certificate.reciever_cnic}}</td>
                                     </tr>
-
                               </tbody>
                         </table>
+                        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center balanced">
+                              <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                              </pagination-controls>
+                        </div>
                   </div>
             </div>
       </div>

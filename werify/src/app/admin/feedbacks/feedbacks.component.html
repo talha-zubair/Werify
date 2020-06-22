@@ -17,7 +17,8 @@
                                     </tr>
                               </thead>
                               <tbody>
-                                    <tr *ngFor="let feedback of feedbacks">
+                                    <tr
+                                          *ngFor="let feedback of feedbacks | paginate: { itemsPerPage: 6, currentPage: p }">
                                           <td>{{feedback.provider}}</td>
                                           <td>{{feedback.category}}</td>
                                           <td>{{feedback.desc}}</td>
@@ -34,6 +35,10 @@
                                     </tr>
                               </tbody>
                         </table>
+                        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center balanced">
+                              <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                              </pagination-controls>
+                        </div>
                   </div>
             </div>
       </div>

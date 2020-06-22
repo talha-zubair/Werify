@@ -14,6 +14,8 @@ import { RegisterComponent } from './register/register.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [HomeComponent, WhatIsWerifyComponent, ContactUsComponent, AboutUsComponent, LoginComponent, RegisterComponent, LandingPageComponent, ForgotpasswordComponent],
@@ -21,7 +23,8 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     CommonModule,
     HomeRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ]
 })
 export class HomeModule { }

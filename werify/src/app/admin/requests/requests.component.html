@@ -17,7 +17,7 @@
                                     </tr>
                               </thead>
                               <tbody>
-                                    <tr *ngFor="let org of orgs">
+                                    <tr *ngFor="let org of orgs | paginate: { itemsPerPage: 6, currentPage: p }">
                                           <td><img [src]="imageSrc ||'http://localhost:3000/assets/'+org.img_path"
                                                       height="50" width="50" alt="" class="img-fluid rounded-circle">
                                           </td>
@@ -31,6 +31,10 @@
 
                               </tbody>
                         </table>
+                        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center balanced">
+                              <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                              </pagination-controls>
+                        </div>
                   </div>
             </div>
       </div>

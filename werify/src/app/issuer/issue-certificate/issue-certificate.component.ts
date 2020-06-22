@@ -210,6 +210,7 @@ export class IssueCertificateComponent implements OnInit {
     canva_json = JSON.stringify(canva_json);
     this.certificate.design = canva_json;
     // console.log(this.certificate);
+    Swal.fire("Validating Data");
     this.orgService.GetCertificateCounter(this.certificate.reciever, this.certificate.reciever_cnic).subscribe(
       data => {
         if (data["message"] == "failure") {
@@ -218,6 +219,7 @@ export class IssueCertificateComponent implements OnInit {
           this.certificate.certificate_no = data["docs"];
           this.contract.methods.CertificateCounter().call().then((count) => {
             this.certificate.certificate_block_number = count;
+            Swal.fire("Transaction Processing in Blockchain....Please Wait");
             this.contract.methods.IssueCertificate("" + this.certificate.certificate_no, "" + this.certificate.sender, "" + this.certificate.reciever, "" + this.certificate.issue_date).send({ from: this.account }).then(function (result) {
               console.log(result);
               Swal.fire("Successfull", "Successfully Added Into Blockchain", "success");

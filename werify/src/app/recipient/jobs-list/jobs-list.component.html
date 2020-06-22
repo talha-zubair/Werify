@@ -1,11 +1,35 @@
-<section class="ftco-section bg-light">
+<div class="row justify-content-center pt-1">
+      <div class="col-12 col-md-12 col-lg-10">
+            <form class="card card-sm" ngNativeValidate #f="ngForm" (ngSubmit)="search(f)">
+                  <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                              <i class="fas fa-search h6 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                              <input class="form-control form-control-lg" type="text" name="search" ngModel
+                                    placeholder="Search topics or keywords" />
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                              <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                        </div>
+                        <!--end of col-->
+                  </div>
+            </form>
+      </div>
+      <!--end of col-->
+</div>
+<section class=" ftco-section bg-light">
       <div class="container">
             <div class="row ">
-                  <div *ngFor="let job of jobs" class="col-md-12 ftco-animate pt-3">
+                  <div *ngFor="let job of jobs | paginate: { itemsPerPage: 5, currentPage: p }"
+                        class="col-md-12 ftco-animate pt-3">
                         <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center ">
                               <div class="mb-4 mb-md-0 mr-5">
                                     <div class="job-post-item-header d-flex align-items-center">
-                                          <h2 class="mr-3 text-black h3">{{job.title}}</h2>
+                                          <h2 class="mr-3 text-black h3">{{job.title}}
+                                          </h2>
                                           <div class="badge-wrap">
                                                 <span
                                                       class="bg-danger text-white badge py-2 px-3">{{job.job_type}}</span>
@@ -13,11 +37,14 @@
                                     </div>
                                     <div class="job-post-item-body d-block d-md-flex">
                                           <div class="mr-3">{{job.user}}</div>
-                                          <div><span class="icon-my_location"></span> <span>{{job.location}}</span>
+                                          <div><span class="icon-my_location"></span>
+                                                <span>{{job.location}}</span>
                                           </div>
                                     </div>
                                     <div class="job-post-item-body d-block d-md-flex">
-                                          <div class="mr-3">{{job.salary +"/- PKR ( "+job.field+" )"}}</div>
+                                          <div class="mr-3">
+                                                {{job.salary +"/- PKR ( "+job.field+" )"}}
+                                          </div>
                                     </div>
                               </div>
                               <div class="ml-auto d-flex">
@@ -25,6 +52,9 @@
                                           More</a>
                               </div>
                         </div>
+                  </div>
+                  <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center balanced">
+                        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
                   </div>
             </div>
       </div>

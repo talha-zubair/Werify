@@ -1,8 +1,33 @@
-<section Id="team">
-      <div class="container my-3 py-5 text-center">
+<div class="row justify-content-center pt-1">
+      <div class="col-12 col-md-12 col-lg-10">
+            <form class="card card-sm" ngNativeValidate #f="ngForm" (ngSubmit)="search(f)">
+                  <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                              <i class="fas fa-search h6 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                              <input class="form-control form-control-lg" type="text" name="search" ngModel
+                                    placeholder="Search for username" />
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                              <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                        </div>
+                        <!--end of col-->
+                  </div>
+            </form>
+      </div>
+      <!--end of col-->
+</div>
 
+
+
+<section Id="team">
+      <div class="container my-3 text-center">
             <div class="row">
-                  <div *ngFor="let employer of orgs" class="col-lg-3 col md-6 mb-3">
+                  <div *ngFor="let employer of orgs | paginate: { itemsPerPage: 4, currentPage: p }"
+                        class="col-lg-3 col md-6 mb-3">
                         <div class="card">
                               <div class="card-body">
                                     <img [src]="'http://localhost:3000/assets/'+employer.img_path" alt=""
@@ -28,7 +53,9 @@
                         </div>
                   </div>
             </div>
-
+      </div>
+      <div class="d-md-flex  balanced">
+            <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
       </div>
 
 </section>

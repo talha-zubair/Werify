@@ -72,6 +72,11 @@ export class OrganizationService {
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
     return this.http.get(this.url.concat("getRecipients"), { params: params, headers: headers_object })
   }
+  searchRecipients(search: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.post(this.url.concat("searchRecipients"), { "search_text": search }, { params: params, headers: headers_object })
+  }
   changePassword(old_password: string, new_password: string) {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));

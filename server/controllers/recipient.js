@@ -204,6 +204,28 @@ exports.viewEmployers = (req, res, next) => {
 
 
 
+exports.searchEmployers = (req, res, next) => {
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var search = req.body["search_text"];
+                  OrganizationModel.find({ username: { $regex: '.*' + search + '.*', $options: 'i' }, profile_completed_status: true }, (err, docs) => {
+                        if (docs) {
+                              res.json({ "docs": docs, "message": "success" });
+                        } else {
+                              res.status(404).json({ "message": "failure" })
+                        }
+                  })
+            }
+      })
+}
+
+
+
 
 exports.getRecipientCertificates = (req, res, next) => {
       const recipient = new RecipientModel({
@@ -658,6 +680,47 @@ exports.getChatByID = (req, res, next) => {
                               res.json({ "message": "failure" });
                         }
                   })
+            }
+      })
+}
+
+
+
+
+
+
+
+
+exports.SearchJobs = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var search = req.body["search_text"];
+                  if (search == "") {
+                        JobsModel.find({ retract_job: false }, (err, docs) => {
+                              if (docs) {
+                                    res.json({ "docs": docs });
+                              } else {
+                                    res.json({ "message": "failure" });
+                              }
+                        })
+                  } else {
+                        JobsModel.find({ title: { $regex: '.*' + search + '.*', $options: 'i' }, retract_job: false }, (err, docs) => {
+                              if (docs) {
+                                    res.json({ "docs": docs });
+                              } else {
+                                    res.json({ "message": "failure" });
+                              }
+                        })
+                  }
+
             }
       })
 }

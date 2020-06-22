@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipientService } from 'src/app/services/recipient.service';
 import { Organization } from 'src/app/models/organization';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-view-employers',
@@ -24,6 +25,16 @@ export class ViewEmployersComponent implements OnInit {
     for (var i = 0; i < this.orgs.length; i++) {
       this.imgSrc.push("http://localhost:3000/assets/" + this.orgs[i].img_path);
     }
+  }
+
+  search(formdata: NgForm) {
+    var search = formdata.value["search"];
+    this.recService.searchEmployers(search).subscribe(
+      (data: Organization[]) => {
+        this.orgs = data["docs"];
+      },
+      err => { console.log(err) }
+    )
   }
 
 }

@@ -27,4 +27,10 @@ export class CertificatesComponent implements OnInit {
     // )
   }
 
+  formatedDate(text: string) {
+    var date = text.substring(0, 10);
+    var time = text.substring(11, 16);
+    return date;
+  }
+
 }

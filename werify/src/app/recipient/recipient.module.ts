@@ -19,6 +19,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { ViewEmployerComponent } from './view-employers/view-employer/view-employer.component';
 import { HiringOffersComponent } from './hiring-offers/hiring-offers.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { HiringOffersComponent } from './hiring-offers/hiring-offers.component';
   imports: [
     CommonModule,
     RecipientRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
+
   ]
 })
 export class RecipientModule { }

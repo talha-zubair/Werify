@@ -40,6 +40,11 @@ export class RecipientService {
     let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
     return this.http.get<Organization[]>(this.url.concat("viewEmployers"), { params: params, headers: headers_object });
   }
+  searchEmployers(search: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post<Organization[]>(this.url.concat("searchEmployers"), { "search_text": search }, { params: params, headers: headers_object });
+  }
   getRecipientCertificates() {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
@@ -68,6 +73,13 @@ export class RecipientService {
     let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
     return this.http.get(this.url.concat("jobs"), { params: params, headers: headers_object })
   }
+  SearchJobs(search_phrase: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post(this.url.concat("searchjobs"), { "search_text": search_phrase }, { params: params, headers: headers_object })
+  }
+
+
   GetJob(id: string) {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Rusername"));

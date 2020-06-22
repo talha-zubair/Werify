@@ -24,12 +24,14 @@ router.get("/view", jwtfile.verifyToken, recipientController.View)
 router.post("/view", recipientController.View2);
 router.post("/update", jwtfile.verifyToken, upload.single('file'), recipientController.Update);
 router.get("/viewEmployers", jwtfile.verifyToken, recipientController.viewEmployers);
+router.post("/searchEmployers", jwtfile.verifyToken, recipientController.searchEmployers);
 router.get("/getRecipientCertificates", jwtfile.verifyToken, recipientController.getRecipientCertificates);
 router.post("/getRecipientCertificates", recipientController.getRecipientCertificates2);
 router.post("/get_certificate", jwtfile.verifyToken, recipientController.getCertificate);
 router.post("/change_password", jwtfile.verifyToken, recipientController.changePassword);
 router.post("/feedback", jwtfile.verifyToken, recipientController.Feedback);
 router.get("/jobs", jwtfile.verifyToken, recipientController.GetJobs);
+router.post("/searchjobs", jwtfile.verifyToken, recipientController.SearchJobs);
 router.post("/get_job", jwtfile.verifyToken, recipientController.GetJob);
 router.post("/get_org", jwtfile.verifyToken, recipientController.GetOrganizationDetail);
 router.post("/application_on_job", jwtfile.verifyToken, recipientController.ApplicationOnJob);

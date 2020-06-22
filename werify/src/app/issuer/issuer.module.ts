@@ -15,6 +15,7 @@ import { ViewCourseComponent } from './courses/view-course/view-course.component
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
   imports: [
     CommonModule,
     IssuerRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class IssuerModule { }

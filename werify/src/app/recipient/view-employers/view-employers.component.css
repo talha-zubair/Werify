@@ -6,3 +6,22 @@
       border:none;
       box-shadow: 2px 2px 2px 7px #007bff;
   }
+  .my-pagination {
+    font-weight: bolder;
+    padding-left: 20em;
+  }
+
+
+  .form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.balanced{
+  padding-left: 12em;
+}

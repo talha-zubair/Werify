@@ -19,6 +19,7 @@ import { EditJobComponent } from './jobs/edit-job/edit-job.component';
 import { ViewRecipientComponent } from './find-recipients/view-recipient/view-recipient.component';
 import { HireRequestComponent } from './hire-request/hire-request.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { EmployeeComponent } from './employee/employee.component';
   imports: [
     CommonModule,
     EmployerRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
+
   ]
 })
 export class EmployerModule { }

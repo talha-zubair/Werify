@@ -340,3 +340,6 @@
     .table-responsive > .table-bordered {
       border: 0;
     }
+    .my-pagination {
+      font-weight: bolder;
+    }

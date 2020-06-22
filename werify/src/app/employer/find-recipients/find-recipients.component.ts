@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { Recipient } from 'src/app/models/recipient';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-find-recipients',
@@ -21,5 +22,13 @@ export class FindRecipientsComponent implements OnInit {
       err => { console.log(err) }
     )
   }
-
+  search(formdata: NgForm) {
+    var search = formdata.value["search"];
+    this.orgService.searchRecipients(search).subscribe(
+      (data: Recipient[]) => {
+        this.recs = data["docs"];
+      },
+      err => { console.log(err) }
+    )
+  }
 }

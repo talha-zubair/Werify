@@ -35,6 +35,7 @@ router.get("/awarded_certificates", jwtfile.verifyToken, OrganizationController.
 router.post("/update_courses", jwtfile.verifyToken, OrganizationController.UpdateCourses);
 router.post("/delete_course", jwtfile.verifyToken, OrganizationController.DeleteCourse);
 router.get("/getRecipients", jwtfile.verifyToken, OrganizationController.getRecipients);
+router.post("/searchRecipients", jwtfile.verifyToken, OrganizationController.searchRecipients);
 router.post("/change_password", jwtfile.verifyToken, OrganizationController.changePassword);
 router.post("/feedback", jwtfile.verifyToken, OrganizationController.Feedback);
 router.post("/post_job", jwtfile.verifyToken, OrganizationController.PostJob);
