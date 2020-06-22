@@ -43,21 +43,29 @@ export class InboxMessagesComponent implements OnInit {
       let reciever = data.msg["reciever"];
       if (sender == this.chat.organization && reciever == this.chat.recipient) {
         var incoming_message = data.msg["message"]["message_text"];
-        this.addMessage(incoming_message, "organization");
+        this.addMessage(incoming_message, "organization", data.msg["message"]["date"]);
       }
     });
   }
-  formatedDate(text: string) {
-    var date = text.substring(0, 10);
-    var time = text.substring(11, 16);
-    return "Date : " + date + " Time : " + time;
-  }
+
   SendMessage() {
     if (this.message == "") {
       alert("Cannot Send Empty Message");
     } else {
-      const mes = new Message(null, "recipient", this.message, null, "text-message", new Date());
-      this.addMessage(mes.message_text, "recipient");
+
+      var date = new Date();
+      var date_number = date.getDate();
+      var month_number = date.getMonth();
+      var year_number = date.getFullYear();
+      var minutes = date.getMinutes();
+      var hours = date.getHours();
+      var date_time = "Date : " + date_number + "-" + month_number + "-" + year_number + " Time : " + hours + ":" + minutes;
+
+
+
+
+      const mes = new Message(null, "recipient", this.message, null, "text-message", date_time);
+      this.addMessage(mes.message_text, "recipient", date_time);
       this.message = "";
       this.socket.emit('mes_from_rec', {
         message: mes,
@@ -69,8 +77,8 @@ export class InboxMessagesComponent implements OnInit {
     }
   }
 
-  addMessage(text: string, user: string) {
-    this.chat.messages.push(new Message(null, user, text, null, "text-message", new Date()));
+  addMessage(text: string, user: string, date_time: string) {
+    this.chat.messages.push(new Message(null, user, text, null, "text-message", date_time));
   }
 
 }

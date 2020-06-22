@@ -1,3 +1,4 @@
+
 export class Message {
       constructor(
             public _id: string,
@@ -5,6 +6,6 @@ export class Message {
             public message_text: string,
             public file_path: string,
             public type: string,
-            public date: Date
+            public date: string
       ) { }
 }
