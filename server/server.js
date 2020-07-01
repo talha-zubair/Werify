@@ -29,7 +29,9 @@ app.get('/', function (req, res) {
       res.send('Hello');
 });
 
-server = app.listen(3000);
+server = app.listen(3000, () => {
+      console.log("Running Server at 3000");
+});
 
 
 var io = socket(server);
