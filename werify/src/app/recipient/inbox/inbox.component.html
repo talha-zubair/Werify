@@ -23,10 +23,32 @@
                                                                   [src]="'http://localhost:3000/assets/'+chat.org_img_path || '../../../assets/default_profile_image.png'"
                                                                   alt="sunil"> </div>
                                                       <div class="chat_ib">
-                                                            <h5>{{chat.organization}} <span class="chat_date">Date and
-                                                                        Time</span></h5>
+                                                            <h5>{{chat.organization}} <span class="chat_date">
+                                                                        <button type="button"
+                                                                              class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                                                              data-toggle="dropdown"
+                                                                              aria-haspopup="true"
+                                                                              aria-expanded="false">
+                                                                              <span class="sr-only">Toggle
+                                                                                    Dropdown</span>
+                                                                        </button>
+                                                                        <div class="dropdown-menu">
+                                                                              <a class="dropdown-item"
+                                                                                    (click)="pin_chat()">Pin
+                                                                                    Chat</a>
+                                                                              <a class="dropdown-item"
+                                                                                    (click)="delete_chat()">Delete
+                                                                                    Chat</a>
+                                                                              <a class="dropdown-item"
+                                                                                    (click)="report_chat()">Report
+                                                                                    Chat</a>
+                                                                        </div>
+                                                                  </span></h5>
                                                             <p>No Read Messages</p>
                                                       </div>
+
+
+
                                                 </div>
                                           </div>
                                     </a>

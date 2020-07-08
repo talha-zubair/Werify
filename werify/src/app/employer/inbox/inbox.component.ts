@@ -21,4 +21,16 @@ export class InboxComponent implements OnInit {
     )
   }
 
+  pin_chat() {
+    alert("Pinned");
+  }
+
+  delete_chat() {
+    alert("Deleted");
+  }
+
+  report_chat() {
+    alert("Reported");
+  }
+
 }

@@ -25,28 +25,18 @@ export class EditProfileComponent implements OnInit {
       data => {
         this.rec = data[0];
         if (this.rec.dob) {
-          // var d = new Date(this.rec.dob);
-          // var month: string;
-          // var day: string;
-          // var year: string;
-          // console.log(d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay())
-          // if (d.getMonth() < 10) {
-          //   month = "0" + d.getMonth();
-          // } else {
-          //   month = "" + d.getMonth();
-          // }
-          // if (d.getDay() < 10) {
-          //   day = "0" + d.getDay();
-          // } else {
-          //   day = "" + d.getDay();
-          // }
-          // if (("" + d.getFullYear()).length == 3) {
-          //   year = d.getFullYear() + "0";
-          // } else {
-          //   year = d.getFullYear() + "";
-          // }
-          // // console.log(year + "-" + month + "-" + day)
-          // this.newDate = year + "-" + month + "-" + day;
+          var d = new Date(this.rec.dob)
+          var year = "" + d.getFullYear();
+          var month = "" + (d.getMonth() + 1);
+          var day = "" + d.getDate();
+          if (d.getMonth() + 1 < 10) {
+            month = "0" + (d.getMonth() + 1);
+          }
+          if (d.getDate() < 10) {
+            day = "0" + d.getDate();
+          }
+          console.log(year + "-" + month + "-" + day);
+          this.newDate = year + "-" + month + "-" + day;
         }
         if (this.rec.img_path) {
           this.imageSrc = "http://localhost:3000/assets/" + this.rec.img_path;

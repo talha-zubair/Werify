@@ -178,8 +178,8 @@ exports.Update = (req, res, next) => {
                                     }
                               });
                   } else {
-                        OrganizationModel.findOneAndUpdate({ username: recipient.username },
-                              { $set: { first_name: recipient.first_name, last_name: recipient.last_name, email_status: recipient.email_status, phone: recipient.phone, phone_status: recipient.phone_status, country: recipient.country, province: recipient.province, city: recipient.city, district: recipient.district, address: recipient.address, approved: recipient.approved, profile_completed_status: recipient.profile_completed_status, cnic: recipient.cnic, field: recipient.field, dob: recipient.dob, employed: recipient.employed, password: recipient.password, email: recipient.email, cnic: recipient.cnic } },
+                        OrganizationModel.findOneAndUpdate({ username: organization.username },
+                              { $set: { first_name: organization.first_name, last_name: organization.last_name, email_status: organization.email_status, phone: organization.phone, phone_status: organization.phone_status, country: organization.country, province: organization.province, city: organization.city, district: organization.district, address: organization.address, creation_date: organization.creation_date, email: organization.email } },
                               { useFindAndModify: false }, function (err, docs) {
                                     if (docs) {
                                           res.send({ "message": "success" });

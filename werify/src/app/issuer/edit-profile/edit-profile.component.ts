@@ -23,28 +23,17 @@ export class EditProfileComponent implements OnInit {
       data => {
         this.org = data[0];
         if (this.org.creation_date) {
-          // var d = new Date(this.org.dob);
-          // var month: string;
-          // var day: string;
-          // var year: string;
-          // console.log(d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay())
-          // if (d.getMonth() < 10) {
-          //   month = "0" + d.getMonth();
-          // } else {
-          //   month = "" + d.getMonth();
-          // }
-          // if (d.getDay() < 10) {
-          //   day = "0" + d.getDay();
-          // } else {
-          //   day = "" + d.getDay();
-          // }
-          // if (("" + d.getFullYear()).length == 3) {
-          //   year = d.getFullYear() + "0";
-          // } else {
-          //   year = d.getFullYear() + "";
-          // }
-          // // console.log(year + "-" + month + "-" + day)
-          // this.newDate = year + "-" + month + "-" + day;
+          var d = new Date(this.org.creation_date)
+          var year = "" + d.getFullYear();
+          var month = "" + (d.getMonth() + 1);
+          var day = "" + d.getDate();
+          if (d.getMonth() + 1 < 10) {
+            month = "0" + (d.getMonth() + 1);
+          }
+          if (d.getDate() < 10) {
+            day = "0" + d.getDate();
+          }
+          this.newDate = year + "-" + month + "-" + day;
         }
         if (this.org.img_path) {
           this.imageSrc = "http://localhost:3000/assets/" + this.org.img_path;

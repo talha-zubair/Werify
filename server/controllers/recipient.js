@@ -114,7 +114,6 @@ exports.View2 = (req, res, next) => {
 }
 
 
-
 exports.Update = (req, res, next) => {
       const recipient = new RecipientModel(JSON.parse(req.body["rec"]));
       recipient.img_path = req.filename;
