@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/werify", (error) => {
+require('dotenv').config();
+const db_url = process.env.LOCALDB;
+
+mongoose.connect(db_url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (error) => {
       if (!error) {
             console.log("Database Connected")
       } else {

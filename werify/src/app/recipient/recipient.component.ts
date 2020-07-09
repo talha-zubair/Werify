@@ -13,6 +13,10 @@ export class RecipientComponent implements OnInit {
   rec: Recipient;
   constructor(private route: ActivatedRoute, private router: Router, private recService: RecipientService) { }
   ngOnInit() {
+    var name = this.route.snapshot.paramMap.get("username");
+    if (name != localStorage.getItem("Rusername")) {
+      this.router.navigate(["/"]);
+    }
     this.rec = null;
     this.recService.recipientDetails(localStorage.getItem("Rusername")).subscribe(
       data => {

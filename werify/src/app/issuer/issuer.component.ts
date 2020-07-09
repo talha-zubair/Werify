@@ -16,6 +16,10 @@ export class IssuerComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private orgService: OrganizationService) { }
 
   ngOnInit() {
+    var name = this.route.snapshot.paramMap.get("username");
+    if (name != localStorage.getItem("Ousername")) {
+      this.router.navigate(["/"]);
+    }
     this.orgService.orgDetails().subscribe(
       data => {
         this.org = data[0];

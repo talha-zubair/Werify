@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const bodyparser = require("body-parser");
 const cors = require("cors");
-const DBConnected = require("./db/db.js");
+require("./db/db.js");
 
 const recipientRoutes = require("./routes/recipient");
 const organizationRoutes = require("./routes/organization");
@@ -29,8 +29,12 @@ app.get('/', function (req, res) {
       res.send('Hello');
 });
 
-server = app.listen(3000, () => {
-      console.log("Running Server at 3000");
+require('dotenv').config();
+const port = process.env.PORT;
+
+
+server = app.listen(port, () => {
+      console.log("Running Server at " + port);
 });
 
 
@@ -41,7 +45,6 @@ io.on('connection', (socket) => {
                   if (err) {
                         console.log("Error in Authentication in Chatting in Recipient");
                   } else {
-                        // console.log(data);
                         ChatModel.updateOne({ _id: data["chat_id"] }, { $push: { messages: [data["message"]] } }, (err, docs) => {
                               if (err) {
                                     console.log(err);
@@ -59,7 +62,6 @@ io.on('connection', (socket) => {
                   if (err) {
                         console.log("Error in Authentication in Chatting in Organization");
                   } else {
-                        // console.log(data);
                         ChatModel.updateOne({ _id: data["chat_id"] }, { $push: { messages: [data["message"]] } }, (err, docs) => {
                               if (err) {
                                     console.log(err);

@@ -15,6 +15,10 @@ export class EmployerComponent implements OnInit {
   constructor(private orgService: OrganizationService, private route: ActivatedRoute, private router: Router, private recService: OrganizationService) { }
 
   ngOnInit() {
+    var name = this.route.snapshot.paramMap.get("username");
+    if (name != localStorage.getItem("Ousername")) {
+      this.router.navigate(["/"]);
+    }
     this.orgService.orgDetails().subscribe(
       data => {
         this.org = data[0];
