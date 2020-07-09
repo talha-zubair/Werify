@@ -887,13 +887,15 @@ exports.getChats = (req, res, next) => {
                         "err": err
                   });
             } else {
-                  ChatModel.find({ organization: organization.username }, (err, docs) => {
-                        if (docs) {
-                              res.json({ "message": "success", "docs": docs });
-                        } else {
-                              res.json({ "message": "failure" });
+                  ChatModel.find({ organization: organization.username, org_delete_status: false }).sort({ 'org_pinned_status': -1 }).exec(
+                        (err, docs) => {
+                              if (docs) {
+                                    res.json({ "message": "success", "docs": docs });
+                              } else {
+                                    res.json({ "message": "failure" });
+                              }
                         }
-                  })
+                  )
             }
       })
 }
@@ -998,6 +1000,111 @@ exports.getChatByID = (req, res, next) => {
                               res.json({ "message": "failure" });
                         }
                   })
+            }
+      })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.PinChat = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findOneAndUpdate({ _id: chat_id },
+                        { $set: { org_pinned_status: true } },
+                        { useFindAndModify: false }, function (err, docs) {
+                              if (docs) {
+                                    res.send({ "message": "success" });
+                              } else {
+                                    res.send({ "message": "failure" });
+                              }
+                        });
+            }
+      })
+}
+
+
+exports.DeleteChat = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findOneAndUpdate({ _id: chat_id },
+                        { $set: { org_delete_status: true } },
+                        { useFindAndModify: false }, function (err, docs) {
+                              if (docs) {
+                                    res.send({ "message": "success" });
+                              } else {
+                                    res.send({ "message": "failure" });
+                              }
+                        });
+            }
+      })
+}
+
+
+
+exports.ReportChat = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findById(chat_id, (err, docs) => {
+                        if (docs) {
+                              var feedback = new FeedbackModel({
+                                    replied: false,
+                                    provider: organization.username,
+                                    category: "Messenger",
+                                    desc: "Report username " + docs["recipient"],
+                                    user_type: "Organization",
+                                    date: Date.now()
+                              });
+                              feedback.save((err, docs) => {
+                                    if (err) {
+                                          res.send({ "message": "failure" })
+                                    } else {
+                                          res.send({ "message": "success" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" });
+                        }
+                  });
+
+
+
             }
       })
 }

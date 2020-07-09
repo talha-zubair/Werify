@@ -168,6 +168,24 @@ export class OrganizationService {
 
 
 
+  pinChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.post(this.url.concat("pinChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+  reportChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.post(this.url.concat("reportChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+  deleteChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.post(this.url.concat("deleteChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+
+
+
 
 
   VerifyEmail(email: string) {

@@ -43,5 +43,9 @@ router.post("/acceptOffer", jwtfile.verifyToken, recipientController.acceptOffer
 router.post("/rejectOffer", jwtfile.verifyToken, recipientController.rejectOffer);
 router.post("/getChat", jwtfile.verifyToken, recipientController.getChatByID);
 
+router.post("/pinChat", jwtfile.verifyToken, recipientController.PinChat);
+router.post("/deleteChat", jwtfile.verifyToken, recipientController.DeleteChat);
+router.post("/reportChat", jwtfile.verifyToken, recipientController.ReportChat);
+
 
 exports.routes = router;

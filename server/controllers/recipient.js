@@ -556,7 +556,7 @@ exports.getChats = (req, res, next) => {
                         "err": err
                   });
             } else {
-                  ChatModel.find({ recipient: recipient.username }, (err, docs) => {
+                  ChatModel.find({ recipient: recipient.username, rec_delete_status: false }).sort({ "rec_pinned_status": -1 }).exec((err, docs) => {
                         if (docs) {
                               res.json({ "message": "success", "docs": docs });
                         } else {
@@ -720,6 +720,120 @@ exports.SearchJobs = (req, res, next) => {
                         })
                   }
 
+            }
+      })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.PinChat = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findOneAndUpdate({ _id: chat_id },
+                        { $set: { rec_pinned_status: true } },
+                        { useFindAndModify: false }, function (err, docs) {
+                              if (docs) {
+                                    res.send({ "message": "success" });
+                              } else {
+                                    res.send({ "message": "failure" });
+                              }
+                        });
+            }
+      })
+}
+
+
+exports.DeleteChat = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findOneAndUpdate({ _id: chat_id },
+                        { $set: { rec_delete_status: true } },
+                        { useFindAndModify: false }, function (err, docs) {
+                              if (docs) {
+                                    res.send({ "message": "success" });
+                              } else {
+                                    res.send({ "message": "failure" });
+                              }
+                        });
+            }
+      })
+}
+
+
+
+exports.ReportChat = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  var chat_id = req.body["id"];
+                  ChatModel.findById(chat_id, (err, docs) => {
+                        if (docs) {
+                              var feedback = new FeedbackModel({
+                                    replied: false,
+                                    provider: recipient.username,
+                                    category: "Messenger",
+                                    desc: "Report username " + docs["organization"],
+                                    user_type: "Recipient",
+                                    date: Date.now()
+                              });
+                              feedback.save((err, docs) => {
+                                    if (err) {
+                                          res.send({ "message": "failure" })
+                                    } else {
+                                          res.send({ "message": "success" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" });
+                        }
+                  });
             }
       })
 }

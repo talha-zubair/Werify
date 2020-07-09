@@ -139,6 +139,33 @@ export class RecipientService {
 
 
 
+  pinChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post(this.url.concat("pinChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+  reportChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post(this.url.concat("reportChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+  deleteChat(id: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post(this.url.concat("deleteChat"), { "id": id }, { params: params, headers: headers_object })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   VerifyEmail(email: string) {
     return this.http.post("http://localhost:3000/email/verify_email", { "email": email });

@@ -9,6 +9,7 @@
                               <div class="srch_bar">
                                     <div class="stylish-input-group">
                                           <span class="input-group-addon">
+                                                <!-- <button class="btn btn-info">Archived</button> -->
                                           </span> </div>
                               </div>
                         </div>
@@ -16,7 +17,6 @@
                               <div *ngFor="let chat of chats">
                                     <a [routerLink]='chat._id'>
                                           <div class="chat_list">
-                                                <!-- <div class="chat_list active_chat"> -->
                                                 <div class="chat_people">
                                                       <div class="chat_img"> <img
                                                                   [src]="'http://localhost:3000/assets/'+chat.rec_img_path || '../../../assets/default_profile_image.png'"
@@ -33,17 +33,16 @@
                                                                         </button>
                                                                         <div class="dropdown-menu">
                                                                               <a class="dropdown-item"
-                                                                                    (click)="pin_chat()">Pin
+                                                                                    (click)="pin_chat(chat)">Pin
                                                                                     Chat</a>
                                                                               <a class="dropdown-item"
-                                                                                    (click)="delete_chat()">Delete
+                                                                                    (click)="delete_chat(chat)">Delete
                                                                                     Chat</a>
                                                                               <a class="dropdown-item"
-                                                                                    (click)="report_chat()">Report
+                                                                                    (click)="report_chat(chat)">Report
                                                                                     Chat</a>
                                                                         </div>
                                                                   </span></h5>
-                                                            <p>No Read Messages</p>
                                                       </div>
                                                 </div>
                                           </div>
