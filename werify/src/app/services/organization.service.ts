@@ -191,6 +191,6 @@ export class OrganizationService {
   recCountforOrg(username: string) {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
-    return this.http.post(this.url.concat("recCounts"), { "rec": username }, { params: params, headers: headers_object })
+    return this.http.post(this.url.concat("recCounts"), { "username": username }, { params: params, headers: headers_object })
   }
 }

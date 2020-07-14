@@ -26,15 +26,22 @@ export class ViewEmployerComponent implements OnInit {
       data => {
         this.org = data[0];
         this.imageSrc = "http://localhost:3000/assets/" + this.org.img_path
+        this.recService.orgCountsForRec(this.org.username).subscribe(
+          data => {
+            this.jobs_count = data["docs1"];
+            this.employers = data["docs2"]
+          },
+          err => { console.log(err) }
+        )
       },
       err => { console.log(err) }
     );
-    // this.orgService.GetJobForOrganizationForRecipient(username).subscribe(
-    //   (data: Job[]) => {
-    //     this.jobs = data["docs"];
-    //   },
-    //   err => { console.log(err) }
-    // )
+    this.orgService.GetJobForOrganizationForRecipient(username).subscribe(
+      (data: Job[]) => {
+        this.jobs = data["docs"];
+      },
+      err => { console.log(err) }
+    )
 
     this.recService.orgCountsForRec(this.org.username).subscribe(
       data => { console.log(data) },

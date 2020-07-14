@@ -13,6 +13,7 @@ var mailer = require("../nodemailer/mailer.js");
 const JobsModel = require("../models/job.js");
 const bcrypt = require("bcryptjs");
 var sharp = require("sharp");
+const { Certificate } = require("crypto");
 
 exports.Signup = (req, res, next) => {
       const organization = new OrganizationModel(req.body);
@@ -1126,6 +1127,37 @@ exports.orgCounts = (req, res, next) => {
                   JobsModel.find({ "user": organization.username }).countDocuments().exec((err, docs1) => {
                         if (!err) {
                               EmployeeModel.find({ "org": organization.username }).countDocuments().exec((err, docs2) => {
+                                    if (!err) {
+                                          res.json({ "message": "success", "docs1": docs1, "docs2": docs2 })
+                                    } else {
+                                          res.json({ "message": "failure" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" })
+                        }
+                  })
+            }
+      })
+}
+
+
+
+
+exports.RecipientCountsForOrganization = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  CertificateModel.find({ "reciever": req.body["username"] }).countDocuments().exec((err, docs1) => {
+                        if (!err) {
+                              ApplicationsModel.find({ "recipient": req.body["username"] }).countDocuments().exec((err, docs2) => {
                                     if (!err) {
                                           res.json({ "message": "success", "docs1": docs1, "docs2": docs2 })
                                     } else {

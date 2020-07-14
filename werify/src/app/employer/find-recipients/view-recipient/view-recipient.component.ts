@@ -21,8 +21,8 @@ const wa = window as any;
 export class ViewRecipientComponent implements OnInit {
 
 
-  private applications_counts = 2;
-  private certificates_counts = 2;
+  private applications_counts = 0;
+  private certificates_counts = 0;
 
   private contract;
   private web3;
@@ -183,13 +183,18 @@ export class ViewRecipientComponent implements OnInit {
     } else {
       Swal.fire("Error", "No Metamask Installed", "error");
     }
-
-
     var username = this.route.snapshot.paramMap.get('username');
     this.recService.recipientDetailsForOrganization(username).subscribe(
       data => {
         this.rec = data[0];
         this.imageSrc = "http://localhost:3000/assets/" + this.rec.img_path
+        this.orgService.recCountforOrg(this.rec.username).subscribe(
+          data => {
+            this.certificates_counts = data["docs1"];
+            this.applications_counts = data["docs2"];
+          },
+          err => { console.log(err) }
+        )
       },
       err => { console.log(err) }
     );
@@ -199,6 +204,9 @@ export class ViewRecipientComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+
+
+
   }
 
   sendhireRequest(username: string) {

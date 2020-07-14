@@ -58,6 +58,6 @@ router.get("/orgCounts", jwtfile.verifyToken, OrganizationController.orgCounts);
 router.post("/reportChat", jwtfile.verifyToken, OrganizationController.ReportChat);
 router.post("/deleteChat", jwtfile.verifyToken, OrganizationController.DeleteChat);
 router.post("/pinChat", jwtfile.verifyToken, OrganizationController.PinChat);
-// router.post("/recCounts", jwtfile.verifyToken, OrganizationController.RecipientCountsForOrganization);
+router.post("/recCounts", jwtfile.verifyToken, OrganizationController.RecipientCountsForOrganization);
 
 exports.routes = router;
