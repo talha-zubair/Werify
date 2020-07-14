@@ -10,6 +10,8 @@ import { Job } from 'src/app/models/job';
 })
 export class DashboardComponent implements OnInit {
 
+  private jobs_count = 0;
+  private employers = 0;
   private imageSrc;
   private jobs: Job[];
   private org: Organization;
@@ -29,6 +31,16 @@ export class DashboardComponent implements OnInit {
       },
       err => { console.log(err) }
     )
+    this.orgService.orgCounts().subscribe(
+      data => {
+        this.jobs_count = data["docs1"];
+        this.employers = data["docs2"];
+      },
+      err => {
+        console.log(err);
+      }
+    )
+
   }
 
 }

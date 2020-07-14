@@ -165,9 +165,6 @@ export class OrganizationService {
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
     return this.http.post(this.url.concat("getChat"), { "id": id }, { params: params, headers: headers_object })
   }
-
-
-
   pinChat(id: string) {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
@@ -183,12 +180,17 @@ export class OrganizationService {
     let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
     return this.http.post(this.url.concat("deleteChat"), { "id": id }, { params: params, headers: headers_object })
   }
-
-
-
-
-
+  orgCounts() {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.get(this.url.concat("orgCounts"), { params: params, headers: headers_object })
+  }
   VerifyEmail(email: string) {
     return this.http.post("http://localhost:3000/email/verify_email", { "email": email });
+  }
+  recCountforOrg(username: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Otoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Ousername"));
+    return this.http.post(this.url.concat("recCounts"), { "rec": username }, { params: params, headers: headers_object })
   }
 }

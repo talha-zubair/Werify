@@ -1108,3 +1108,34 @@ exports.ReportChat = (req, res, next) => {
             }
       })
 }
+
+
+
+
+exports.orgCounts = (req, res, next) => {
+      const organization = new OrganizationModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  JobsModel.find({ "user": organization.username }).countDocuments().exec((err, docs1) => {
+                        if (!err) {
+                              EmployeeModel.find({ "org": organization.username }).countDocuments().exec((err, docs2) => {
+                                    if (!err) {
+                                          res.json({ "message": "success", "docs1": docs1, "docs2": docs2 })
+                                    } else {
+                                          res.json({ "message": "failure" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" })
+                        }
+                  })
+            }
+      })
+}

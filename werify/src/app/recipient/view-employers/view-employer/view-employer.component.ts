@@ -12,6 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewEmployerComponent implements OnInit {
 
+  private jobs_count = 2;
+  private employers = 4;
+
   private imageSrc;
   private jobs: Job[];
   private org: Organization;
@@ -26,12 +29,19 @@ export class ViewEmployerComponent implements OnInit {
       },
       err => { console.log(err) }
     );
-    this.orgService.GetJobForOrganizationForRecipient(username).subscribe(
-      (data: Job[]) => {
-        this.jobs = data["docs"];
-      },
-      err => { console.log(err) }
+    // this.orgService.GetJobForOrganizationForRecipient(username).subscribe(
+    //   (data: Job[]) => {
+    //     this.jobs = data["docs"];
+    //   },
+    //   err => { console.log(err) }
+    // )
+
+    this.recService.orgCountsForRec(this.org.username).subscribe(
+      data => { console.log(data) },
+      err => { }
     )
+
+
   }
 
 }

@@ -13,6 +13,7 @@ const AwardedCertificatesModel = require("../models/awardedCertificates.js");
 const FeedbackModel = require("../models/feedback.js");
 const bcrypt = require("bcryptjs");
 var sharp = require("sharp");
+const { Certificate } = require("crypto");
 
 exports.Signup = (req, res, next) => {
       const recipient = new RecipientModel(req.body);
@@ -834,6 +835,75 @@ exports.ReportChat = (req, res, next) => {
                               res.json({ "message": "failure" });
                         }
                   });
+            }
+      })
+}
+
+
+
+
+exports.RecipientCounts = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  AwardedCertificatesModel.find({ "reciever": recipient.username }).countDocuments().exec((err, docs1) => {
+                        if (!err) {
+                              ApplicationsModel.find({ "recipient": recipient.username }).countDocuments().exec((err, docs2) => {
+                                    if (!err) {
+                                          res.json({ "message": "success", "docs1": docs1, "docs2": docs2 })
+                                    } else {
+                                          res.json({ "message": "failure" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" })
+                        }
+                  })
+            }
+      })
+}
+
+
+
+
+
+
+
+
+
+
+
+exports.OrganizationCountsForRecipient = (req, res, next) => {
+      const recipient = new RecipientModel({
+            username: req.query["username"]
+      });
+      jwt.verify(req.token, jwtfile.secretkey, (err, data) => {
+            if (err) {
+                  res.json({
+                        "message": "You are logged Out",
+                        "err": err
+                  });
+            } else {
+                  JobsModel.find({ "user": req.body["username"] }).countDocuments().exec((err, docs1) => {
+                        if (!err) {
+                              EmployedModel.find({ "org": req.body["username"] }).countDocuments().exec((err, docs2) => {
+                                    if (!err) {
+                                          res.json({ "message": "success", "docs1": docs1, "docs2": docs2 })
+                                    } else {
+                                          res.json({ "message": "failure" })
+                                    }
+                              })
+                        } else {
+                              res.json({ "message": "failure" })
+                        }
+                  })
             }
       })
 }

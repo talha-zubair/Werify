@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmployerComponent implements OnInit {
   username: string;
   imageSrc;
+  completed: boolean;
   org: Organization;
   constructor(private orgService: OrganizationService, private route: ActivatedRoute, private router: Router, private recService: OrganizationService) { }
 
@@ -25,6 +26,7 @@ export class EmployerComponent implements OnInit {
         if (this.org.img_path) {
           this.imageSrc = "http://localhost:3000/assets/" + this.org.img_path;
         }
+        this.completed = this.org.profile_completed_status;
       },
       err => { console.log(err) }
     );

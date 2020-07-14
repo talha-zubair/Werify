@@ -21,6 +21,9 @@ const wa = window as any;
 export class ViewRecipientComponent implements OnInit {
 
 
+  private applications_counts = 2;
+  private certificates_counts = 2;
+
   private contract;
   private web3;
   private account: string;

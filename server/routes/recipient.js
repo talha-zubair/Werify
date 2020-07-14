@@ -42,10 +42,10 @@ router.get("/getHireRequests", jwtfile.verifyToken, recipientController.getHireR
 router.post("/acceptOffer", jwtfile.verifyToken, recipientController.acceptOffer);
 router.post("/rejectOffer", jwtfile.verifyToken, recipientController.rejectOffer);
 router.post("/getChat", jwtfile.verifyToken, recipientController.getChatByID);
-
 router.post("/pinChat", jwtfile.verifyToken, recipientController.PinChat);
 router.post("/deleteChat", jwtfile.verifyToken, recipientController.DeleteChat);
 router.post("/reportChat", jwtfile.verifyToken, recipientController.ReportChat);
-
+router.post("/orgCounts", jwtfile.verifyToken, recipientController.OrganizationCountsForRecipient);
+router.get("/recipientsCounts", jwtfile.verifyToken, recipientController.RecipientCounts);
 
 exports.routes = router;

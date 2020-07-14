@@ -137,8 +137,16 @@ export class RecipientService {
     return this.http.post(this.url.concat("getChat"), { "id": id }, { params: params, headers: headers_object })
   }
 
-
-
+  recipientCounts() {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.get(this.url.concat("recipientsCounts"), { params: params, headers: headers_object })
+  }
+  orgCountsForRec(username: string) {
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
+    let params = new HttpParams().set("username", localStorage.getItem("Rusername"));
+    return this.http.post(this.url.concat("orgCounts"), { "username": username }, { params: params, headers: headers_object })
+  }
   pinChat(id: string) {
     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem("Rtoken"));
     let params = new HttpParams().set("username", localStorage.getItem("Rusername"));

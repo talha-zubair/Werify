@@ -11,6 +11,9 @@ import { Certificate } from 'src/app/models/certificate';
 })
 export class DashboardComponent implements OnInit {
 
+  private certificate_no = 0;
+  private applications = 0;
+
   private imageSrc;
   private rec: Recipient;
   private certificates: Certificate[];
@@ -35,5 +38,19 @@ export class DashboardComponent implements OnInit {
         console.log(err);
       }
     )
+
+    this.recService.recipientCounts().subscribe(
+      data => {
+        this.certificate_no = data["docs1"];
+        this.applications = data["docs2"];
+      },
+      err => {
+        console.log(err);
+      }
+    )
+
   }
+
+
+
 }
