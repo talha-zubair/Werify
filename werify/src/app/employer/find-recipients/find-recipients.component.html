@@ -12,7 +12,7 @@
                         </div>
                         <!--end of col-->
                         <div class="col-auto">
-                              <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                              <button class="btn btn-lg btn-info" type="submit">Search</button>
                         </div>
                         <!--end of col-->
                   </div>
@@ -32,7 +32,7 @@
                                     <img [src]="imageSrc ||'http://localhost:3000/assets/'+rec.img_path" alt=""
                                           class="img-fluid rounded-circle w-50 mb-3">
                                     <h3>{{rec.username}}</h3>
-                                    <h5>{{rec.email}}</h5>
+                                    <h6>{{rec.email}}</h6>
                                     <p>{{rec.first_name+" "+rec.last_name}} belongs to {{rec.field}} </p>
                                     <div class="d-flex flex-row justify-content-center">
                                           <div class="p4">
@@ -40,7 +40,7 @@
                                                       <button type="button" class="btn btn-info">View
                                                             More</button>
                                                 </a> -->
-                                                <a class="btn btn-success mr-3" routerLink="{{rec.username}}">View
+                                                <a class="btn btn-info mr-3" routerLink="{{rec.username}}">View
                                                       Profile
                                                 </a>
                                           </div>

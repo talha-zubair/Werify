@@ -102,6 +102,8 @@
                                                                   </h3>
                                                                   <h5>{{certificate.sender}}</h5>
                                                                   <h6>{{certificate.course}} </h6>
+                                                                  <button class="btn btn-sm btn-info"
+                                                                        (click)="Verify(certificate.certificate_block_number,this.certificate.certificate_no)">Verify</button>
                                                             </div>
                                                       </div>
                                                 </div>

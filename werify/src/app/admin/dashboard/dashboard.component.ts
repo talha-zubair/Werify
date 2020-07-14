@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     )
   }
   open() {
-    var url = "https://rinkeby.etherscan.io/address/0x5648cf51d75Eaaf7030C3Be3f25f10F2c011edCC";
+    var url = "https://rinkeby.etherscan.io/address/0xfe4B085669f71608de16428d3815Bc4194aB2145";
     window.open(url, "_blank");
   }
 

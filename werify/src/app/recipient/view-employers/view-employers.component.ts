@@ -15,6 +15,7 @@ export class ViewEmployersComponent implements OnInit {
   constructor(private recService: RecipientService) { }
 
   ngOnInit() {
+
     this.recService.viewEmployers().subscribe(
       (data: Organization[]) => {
         this.orgs = data["docs"];

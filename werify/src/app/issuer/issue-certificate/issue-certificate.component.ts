@@ -36,7 +36,7 @@ export class IssueCertificateComponent implements OnInit {
       ethereum.enable();
       this.web3 = new Web3();
       this.web3.setProvider(wa.web3.currentProvider);
-      var address = "0x5648cf51d75Eaaf7030C3Be3f25f10F2c011edCC";
+      var address = "0xfe4B085669f71608de16428d3815Bc4194aB2145";
       this.contract = new this.web3.eth.Contract([
         {
           "constant": false,

@@ -16,7 +16,7 @@ export class EditProfileComponent implements OnInit {
   newDate: string;
   emailStatus: boolean;
 
-  fields = ["Engineering", "Business", "Information Technology", "Marketing", "Medical"];
+  fields = ["Engineering", "Business", "Computer", "Marketing", "Medical"];
   constructor(private recService: RecipientService, private router: Router) { }
 
   ngOnInit() {

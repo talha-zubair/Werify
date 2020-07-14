@@ -9,6 +9,10 @@ import { Chat } from 'src/app/models/chat';
 import { HireRequest } from 'src/app/models/hire-request';
 
 
+import Web3 from 'web3';
+const wa = window as any;
+
+
 @Component({
   selector: 'app-view-recipient',
   templateUrl: './view-recipient.component.html',
@@ -16,6 +20,10 @@ import { HireRequest } from 'src/app/models/hire-request';
 })
 export class ViewRecipientComponent implements OnInit {
 
+
+  private contract;
+  private web3;
+  private account: string;
   private imageSrc;
   private certificates: Certificate[] = [];
   private rec: Recipient;
@@ -23,6 +31,157 @@ export class ViewRecipientComponent implements OnInit {
   constructor(private recService: RecipientService, private orgService: OrganizationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+
+    if (window.hasOwnProperty('web3')) {
+      let ethereum = wa.ethereum;
+      ethereum.enable();
+      this.web3 = new Web3();
+      this.web3.setProvider(wa.web3.currentProvider);
+      var address = "0xfe4B085669f71608de16428d3815Bc4194aB2145";
+      this.contract = new this.web3.eth.Contract([
+        {
+          "constant": false,
+          "inputs": [
+            {
+              "name": "cert_id",
+              "type": "string"
+            },
+            {
+              "name": "sender",
+              "type": "string"
+            },
+            {
+              "name": "reciever",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            }
+          ],
+          "name": "IssueCertificate",
+          "outputs": [],
+          "payable": false,
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "constant": true,
+          "inputs": [],
+          "name": "CertificateCounter",
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "payable": false,
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "constant": true,
+          "inputs": [
+            {
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "certs",
+          "outputs": [
+            {
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "name": "cert_id",
+              "type": "string"
+            },
+            {
+              "name": "sender",
+              "type": "string"
+            },
+            {
+              "name": "reciever",
+              "type": "string"
+            },
+            {
+              "name": "date",
+              "type": "string"
+            }
+          ],
+          "payable": false,
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "constant": true,
+          "inputs": [
+            {
+              "name": "index",
+              "type": "uint256"
+            }
+          ],
+          "name": "getCertificateDetail",
+          "outputs": [
+            {
+              "name": "",
+              "type": "uint256"
+            },
+            {
+              "name": "",
+              "type": "string"
+            },
+            {
+              "name": "",
+              "type": "string"
+            },
+            {
+              "name": "",
+              "type": "string"
+            },
+            {
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "payable": false,
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "constant": true,
+          "inputs": [
+            {
+              "name": "index",
+              "type": "uint256"
+            },
+            {
+              "name": "cert_id",
+              "type": "string"
+            }
+          ],
+          "name": "werify",
+          "outputs": [
+            {
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "payable": false,
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ], address);
+      this.web3.eth.getAccounts().then((accounts) => {
+        this.account = accounts[0];
+        // console.log(accounts);
+      });
+    } else {
+      Swal.fire("Error", "No Metamask Installed", "error");
+    }
+
+
     var username = this.route.snapshot.paramMap.get('username');
     this.recService.recipientDetailsForOrganization(username).subscribe(
       data => {
@@ -81,4 +240,17 @@ export class ViewRecipientComponent implements OnInit {
       err => { console.log(err) }
     )
   }
+
+  Verify(block_no: string, cert_no: string) {
+    this.contract.methods.werify(block_no, cert_no).call().then((data) => {
+      // console.log(data);
+      if (data != true) {
+        Swal.fire("Verified", "Verified Successfully", "success");
+      } else {
+        Swal.fire("Not in Blockchain", "Unverified", "error");
+      }
+    });
+  }
+
+
 }

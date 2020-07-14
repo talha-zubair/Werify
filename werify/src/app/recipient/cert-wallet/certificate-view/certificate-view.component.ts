@@ -32,7 +32,7 @@ export class CertificateViewComponent implements OnInit {
       ethereum.enable();
       this.web3 = new Web3();
       this.web3.setProvider(wa.web3.currentProvider);
-      var address = "0xc62670cf003F6b8a57631dF5dF06dABEa79e8C7e";
+      var address = "0xfe4B085669f71608de16428d3815Bc4194aB2145";
       this.contract = new this.web3.eth.Contract([
         {
           "constant": false,
@@ -212,15 +212,12 @@ export class CertificateViewComponent implements OnInit {
     document.body.removeChild(link);
   }
   VerifyCertificate() {
-    // console.log(this.account);
-    // console.log(this.certificate.certificate_block_number);
-    // var number = parseInt(this.certificate.certificate_block_number);
-    this.contract.methods.werify(1, this.certificate.certificate_no).call().then((data) => {
+    this.contract.methods.werify(this.certificate.certificate_block_number, this.certificate.certificate_no).call().then((data) => {
       // console.log(data);
       if (data != true) {
         Swal.fire("Verified", "Verified Successfully", "success");
       } else {
-
+        Swal.fire("Not in Blockchain", "Unverified", "error");
       }
     });
   }

@@ -24,4 +24,10 @@ export class EmployeeComponent implements OnInit {
     this.router.navigate(["employer/".concat(localStorage.getItem("Ousername").concat("/find_recipients/".concat(username)))]);
   }
 
+  formatedDate(text: string) {
+    var date = text.substring(0, 10);
+    var time = text.substring(11, 16);
+    return date;
+  }
+
 }
