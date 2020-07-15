@@ -212,9 +212,10 @@ export class CertificateViewComponent implements OnInit {
     document.body.removeChild(link);
   }
   VerifyCertificate() {
+    console.log(this.certificate);
     this.contract.methods.werify(this.certificate.certificate_block_number, this.certificate.certificate_no).call().then((data) => {
       // console.log(data);
-      if (data != true) {
+      if (data == true) {
         Swal.fire("Verified", "Verified Successfully", "success");
       } else {
         Swal.fire("Not in Blockchain", "Unverified", "error");
