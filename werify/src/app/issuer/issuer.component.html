@@ -7,18 +7,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                        <a routerLinkActive="active" class="nav-link" routerLink="certificate_design">Certificate
+                        <a routerLinkActive="active" [hidden]="hidden" class="nav-link"
+                              routerLink="certificate_design">Certificate
                               Design</a>
                   </li>
                   <li class="nav-item">
-                        <a routerLinkActive="active" class="nav-link" routerLink="issue_certificate">Issue
+                        <a routerLinkActive="active" [hidden]="hidden" class="nav-link"
+                              routerLink="issue_certificate">Issue
                               Certificate</a>
                   </li>
                   <li class="nav-item">
-                        <a routerLinkActive="active" class="nav-link" routerLink="courses">Courses</a>
+                        <a routerLinkActive="active" [hidden]="hidden" class="nav-link" routerLink="courses">Courses</a>
                   </li>
                   <li class="nav-item">
-                        <a routerLinkActive="active" class="nav-link" routerLink="recipients">Awarded Recipients</a>
+                        <a routerLinkActive="active" [hidden]="hidden" class="nav-link" routerLink="recipients">Awarded
+                              Recipients</a>
                   </li>
                   <li class="nav-item">
                         <a routerLinkActive="active" class="nav-link" (click)="switchToEmployerMode()">Switch to

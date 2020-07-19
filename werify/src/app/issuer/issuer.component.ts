@@ -13,6 +13,7 @@ export class IssuerComponent implements OnInit {
   username: string;
   imageSrc;
   org: Organization;
+  hidden = false;
   constructor(private route: ActivatedRoute, private router: Router, private orgService: OrganizationService) { }
 
   ngOnInit() {
@@ -25,6 +26,12 @@ export class IssuerComponent implements OnInit {
         this.org = data[0];
         if (this.org.img_path) {
           this.imageSrc = "http://localhost:3000/assets/" + this.org.img_path;
+        }
+        if (this.org.profile_completed_status == false) {
+          this.hidden = true;
+        }
+        if (this.org.approved == null) {
+          this.hidden = true;
         }
       },
       err => { console.log(err) }
@@ -40,6 +47,7 @@ export class IssuerComponent implements OnInit {
     this.router.navigate(["/"]);
   }
   switchToEmployerMode() {
+    console.log("here");
     this.username = this.route.snapshot.paramMap.get("username");
     this.router.navigate(["employer/".concat(this.username)]);
   }

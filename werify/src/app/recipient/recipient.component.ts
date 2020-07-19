@@ -11,6 +11,7 @@ export class RecipientComponent implements OnInit {
   username: string;
   imageSrc;
   rec: Recipient;
+  hidden = false;
   constructor(private route: ActivatedRoute, private router: Router, private recService: RecipientService) { }
   ngOnInit() {
     var name = this.route.snapshot.paramMap.get("username");
@@ -23,6 +24,10 @@ export class RecipientComponent implements OnInit {
         this.rec = data[0];
         if (this.rec.img_path) {
           this.imageSrc = "http://localhost:3000/assets/" + this.rec.img_path;
+        }
+        console.log(this.rec.profile_completed_status);
+        if (this.rec.profile_completed_status == null) {
+          this.hidden = true;
         }
       },
       err => {
@@ -38,6 +43,9 @@ export class RecipientComponent implements OnInit {
     localStorage.removeItem('Rusername');
     localStorage.removeItem('Rtoken');
     this.router.navigate(["/"]);
+  }
+  updateprofile() {
+
   }
 
 }

@@ -13,6 +13,7 @@ export class EmployerComponent implements OnInit {
   imageSrc;
   completed: boolean;
   org: Organization;
+  hidden = false;
   constructor(private orgService: OrganizationService, private route: ActivatedRoute, private router: Router, private recService: OrganizationService) { }
 
   ngOnInit() {
@@ -27,6 +28,12 @@ export class EmployerComponent implements OnInit {
           this.imageSrc = "http://localhost:3000/assets/" + this.org.img_path;
         }
         this.completed = this.org.profile_completed_status;
+        if (this.org.profile_completed_status == false) {
+          this.hidden = true;
+        }
+        if (this.org.approved == null) {
+          this.hidden = true;
+        }
       },
       err => { console.log(err) }
     );

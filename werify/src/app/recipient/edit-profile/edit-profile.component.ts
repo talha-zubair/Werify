@@ -64,7 +64,9 @@ export class EditProfileComponent implements OnInit {
         data => {
           if (data['message'] == "success") {
             Swal.fire('Updated', 'Profile Uploaded Successfully', 'success');
-            this.router.navigate(['/recipient/'.concat(localStorage.getItem("Rusername"))]);
+            this.router.routeReuseStrategy.shouldReuseRoute = function () {
+              return false;
+            };
           }
         },
         err => console.log(err)

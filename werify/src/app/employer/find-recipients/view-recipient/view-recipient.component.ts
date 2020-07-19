@@ -253,15 +253,17 @@ export class ViewRecipientComponent implements OnInit {
   }
 
   Verify(block_no: string, cert_no: string) {
-    this.contract.methods.werify(block_no, cert_no).call().then((data) => {
-      // console.log(data);
-      if (data == true) {
-        Swal.fire("Verified", "Verified Successfully", "success");
-      } else {
-        Swal.fire("Not in Blockchain", "Unverified", "error");
-      }
-    });
+    if (false) {
+
+    } else {
+      this.contract.methods.werify(block_no, cert_no).call().then((data) => {
+        // console.log(data);
+        if (data == true) {
+          Swal.fire("Verified", "Verified Successfully", "success");
+        } else {
+          Swal.fire("Not in Blockchain", "Unverified", "error");
+        }
+      });
+    }
   }
-
-
 }
