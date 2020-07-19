@@ -9,6 +9,7 @@ const recipientRoutes = require("./routes/recipient");
 const organizationRoutes = require("./routes/organization");
 const adminRoutes = require("./routes/admin");
 const mailRoutes = require("./routes/nodemailer.js");
+const path = require("path");
 
 const ChatModel = require("./models/chat.js");
 
@@ -19,6 +20,7 @@ app.use(bodyparser.json());
 app.use(cors())
 
 app.use('/assets', express.static('assets'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/email", mailRoutes.routes);
 app.use("/recipient", recipientRoutes.routes);
@@ -30,7 +32,7 @@ app.get('/', function (req, res) {
 });
 
 require('dotenv').config();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 
 server = app.listen(port, () => {

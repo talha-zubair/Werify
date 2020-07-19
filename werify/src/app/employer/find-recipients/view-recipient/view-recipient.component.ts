@@ -40,7 +40,7 @@ export class ViewRecipientComponent implements OnInit {
       ethereum.enable();
       this.web3 = new Web3();
       this.web3.setProvider(wa.web3.currentProvider);
-      var address = "0xfe4B085669f71608de16428d3815Bc4194aB2145";
+      var address = "0xCd34B8E363D472E0d0d3f9bB192EDe88AA21496C";
       this.contract = new this.web3.eth.Contract([
         {
           "constant": false,

@@ -31,7 +31,7 @@ export class EmployerComponent implements OnInit {
         if (this.org.profile_completed_status == false) {
           this.hidden = true;
         }
-        if (this.org.approved == null) {
+        if (this.org.approved == false) {
           this.hidden = true;
         }
       },

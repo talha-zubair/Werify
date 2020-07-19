@@ -28,15 +28,13 @@ export class IssueCertificateComponent implements OnInit {
   constructor(private orgService: OrganizationService, private router: Router) {
   }
 
-
-
   ngOnInit() {
     if (window.hasOwnProperty('web3')) {
       let ethereum = wa.ethereum;
       ethereum.enable();
       this.web3 = new Web3();
       this.web3.setProvider(wa.web3.currentProvider);
-      var address = "0xfe4B085669f71608de16428d3815Bc4194aB2145";
+      var address = "0xCd34B8E363D472E0d0d3f9bB192EDe88AA21496C";
       this.contract = new this.web3.eth.Contract([
         {
           "constant": false,
@@ -187,8 +185,6 @@ export class IssueCertificateComponent implements OnInit {
       },
       err => { console.log(err); })
   }
-
-
 
   onSubmit(formdata: NgForm) {
     this.certificate.issue_date = "" + new Date();
